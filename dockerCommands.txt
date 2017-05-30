@@ -1,0 +1,54 @@
+list docker images
+	sudo docker images
+
+remove docker image
+	sudo docker rmi dockerImage
+
+run docker image
+	sudo docker run dockerImage
+
+find docker images on docker hub
+	sudo docker search "query"
+
+list running containersh
+
+	sudo docker ps
+
+list all containers, running or not
+	sudo docker ps -a
+
+stop a running container
+	sudo docker stop containerID
+
+start a container
+	sudo docker start containerName
+
+remove a container
+	sudo docker rm containerID
+
+exit container, leave running in background
+	CTRL+P, CTRL+Q
+
+get inside running container?
+	sudo docker attach containerName
+
+
+
+
+
+
+links
+install docker on linux mint : http://linuxbsdos.com/2016/12/13/how-to-install-docker-and-run-docker-containers-on-linux-mint-1818-1/
+
+running multiple web apps on a docker host with apache : https://medium.com/@jmarhee/running-multiple-web-applications-on-a-docker-host-with-apache-85f673f02803
+
+
+
+notes
+	medium article, replace 80 with 8080
+			replace 8080 with 8081
+			replace 8081 with 8082
+
+IP ADDRESS : 192.168.0.132
+
+

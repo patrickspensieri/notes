@@ -1,0 +1,94 @@
+see status
+	git status
+
+activity log
+	git log
+
+show all branches
+	git branch
+
+show all branches, verbose
+	git branch -vv
+
+pull new branch
+	git fetch
+	git checkout newBranchName
+
+change branch
+	git checkout branchName
+
+push local branch to remote
+	git push -u origin branchName
+
+create new local branch
+	git branch branchName
+
+delete local branch
+	git branch -D localBranchName
+
+pull remote branch
+	git checkout branchName
+
+delete remote branch
+	git push origin --delete remoteBranchName
+
+merging branches
+	git checkout master
+	git merge fixesBranch
+	//merges fixesBranch branch into master
+	//creates a merge commit
+
+stashing/popping files
+	git stash save fileName
+	//git checkout otherBranch
+	//make changes
+	//git checkout originalBranch
+	//get the stashed file back
+	git stash pop 
+
+list and drop stashed files
+	git stash list
+	//stash@{0}: branchName: 0234h32 fixed bug
+	git stash drop stash@{0}
+	//Dropped stash@{0} (...)
+
+staging/unstaging files
+	git add fileName
+	git reset fileName
+
+add and commit all files
+	git commit -am "commit message"
+
+hard reset branch to last commit
+	git reset HEAD --hard
+
+reset single file to HEAD
+	git checkout HEAD -- fileName.txt
+
+force change in file name
+	git mv -f OldFileNameCase newfilenamecase
+
+vim fileName.txt (to start vim editor on Mac)
+	i (insert before cursor mode)
+	a (append after cursor mode)
+	v (visual mode)
+	esc (back to normal mode)
+	:x (save and quit)
+	:q (quit without saving)
+
+git show commitID (shows changes made by a given commit)
+
+Example of a efficient, basic workflow used by Codemy:
+
+	Master —> Develop —> featureBranch
+	
+	New features are developed in isolation, then merged with Develop.
+	
+	Master ——> Production Server
+	Develop ——> Staging Server
+	
+	This enables Develop to be tested before integration with production
+	The client can use this server to review code, give opinion
+	Once approved, the Develop branch is merged with the Master
+
+

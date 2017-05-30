@@ -1,0 +1,17 @@
+
+SEE USED PORTS
+	sudo lsof -i -P -n | grep LISTEN
+	//currently, apache2 using port 80
+
+KILL PROCESS USING PARTICULAR PORT
+	sudo fuser -k 80/tcp
+
+OR KILL PARTICULAR PROCESS (if shows you know pid)
+	pid sudo kill
+	//1380 'rerunning sudo-docker compsoe -up d nginx' mysql and going to localhost now empty nginx 404 not found
+
+KEY FILES
+	/laradock/nginx/sites/default.conf
+	/laradock/nginx/nginx.conf	
+	
+	
