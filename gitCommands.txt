@@ -68,6 +68,12 @@ reset single file to HEAD
 force change in file name
 	git mv -f OldFileNameCase newfilenamecase
 
+delete untracked files
+	//to see files that will be deleted
+	git clean -n
+	//to delete untracked files
+	git clean -f
+
 vim fileName.txt (to start vim editor on Mac)
 	i (insert before cursor mode)
 	a (append after cursor mode)

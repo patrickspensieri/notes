@@ -1,0 +1,50 @@
+mySQL NOTES
+
+	by convention, sql commands are in CAPS
+	primary keys must be unique
+	databases consist of tables
+
+run mysql (MAMP instance)
+/Applications/MAMP/Library/bin/mysql -uUsername -p
+(enter password)
+
+show databases
+show databases;
+
+create new database
+CREATE DATABASE dbName;
+
+switch to given database
+USE dbName;
+
+print current database
+SELECT DATABASE();
+
+delete/destroy a database
+DROP DATABASE IF EXISTS dbName;
+
+create table
+CREATE TABLE student(
+	firstName VARCHAR(30) NOT NULL,
+	email VARCHAR(60) NOT NULL,
+	phone VARCHAR(20) NULL,
+	state CHAR(2) NOT NULL DEFAULT "QC",
+	zip MEDIUMINT UNSIGNED NOT NULL,
+	dateEntered TIMESTAMP,
+	birthDate DATE NULL,
+	studentId INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY);
+
+add an entry (whitespace doesn't matter, quotations vary according to type)
+INSERT INTO tableName VALUE(
+	'Patrick',
+	'patrick.spensieri@gmail.com',
+	'5149129867',
+	'QC',
+	78912,
+	NOW(),
+	"1995-01-01",
+	NULL //primary key will be auto created and incremented
+);
+
+query - select all from table
+SELECT * FROM tableName;

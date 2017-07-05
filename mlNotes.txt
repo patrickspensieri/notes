@@ -1,0 +1,140 @@
+Decision Trees allow you to ask many linear questions, one after another
+
+The role of the decision tree is to calculate the decision boundaries.
+
+Entropy controls how a decision tree splits the data, by measuring impurity of examples.
+Does so by recursively finding subsets that are as pure as possible.
+
+Tradeoff between bias and variance
+
+biased algorithms do not learn from data, while algorithms with high variance only perform well on data they've already seen.
+
+Strengths and Weaknesses - Decision Trees ???
+
+------------------------------------------------------------------------------------------------------------------
+
+bagging is a type of ensemble technique, average out noisy, unbiased models to get a model with a lower variance
+
+k nearest neighbors
+	⁃	find labels nearest to the new point
+	⁃	k = num neighbors to consider
+	⁃	if num classes = 2, then k must be odd, to avoid ties
+	⁃	k must not be a multiple of numm classes, to avoid ties
+	⁃	complexity lies in finding nearest neighbors when datasets are large
+
+
+adaboost
+	⁃	bagging technique
+
+random forest 
+	⁃	bagging technique
+	⁃	create many random decision trees, hence the term forest
+	⁃	random trees are created by taking random subsets of test data for each tree
+	⁃	errors in trees are possible, but rare
+	⁃	if one tree only, no way to spot an error
+	⁃	hence, with 5 trees, if 4/5 predict one class, and 1/5 predict another, likely that 1/5 is wrong
+
+adaboost and random forest are ensemble methods
+
+	⁃	get a general understanding
+	⁃	head over to sklearn documentation
+	⁃	get the algorithm running
+	⁃	make predictions and evaluate
+
+------------------------------------------------------------------------------------------------------------------
+
+Regression - Continuous Supervised Learning
+
+Discrete learning produces binary output, while Continous learning can deliver an entire range of values.
+
+output = function(input)
+
+r-squared score 
+	⁃	max of 1, higher is better
+	⁃	gages how well regression is doing
+	⁃	used on test data
+	⁃	using on training can also yield intro, good to compare
+
+error = actual - predicted where the sign is important
+
+sum of squared error
+	⁃	goal is to minimize when performing linear regression
+	⁃	gradient descent
+	⁃	ordinary least squares (used in sklearn)
+	⁃	creates a more balanced line (equidistant to most errors)
+	⁃	makes computation of ideal line much easier
+	⁃	not perfect because adding more points will almost always increase the sum of squared errors
+	⁃	dependent on number of training points
+
+When using sum of squared errors, adding more points will almost always increase the sum. So a line that has a better fit, but more points will be deemed worse than a line with a worse fit, if it has less data points.
+
+r^2 
+	⁃	max of 1, higher is better
+	⁃	describes relationship between input and output in your line
+	⁃	independent of number of training points
+	⁃	gaging the r-squared value depends on the problem, some being harder than others
+
+multivariate regression
+	⁃	takes many features as inputs
+
+outlier rejection
+	⁃	train and test
+	⁃	remove outliers with largest residuals (10% is ok)
+	⁃	train and test again
+
+Note that at times it is best to remove the outliers, if they are result of instrument error... However, outliers should be given extra attention in applications such as fraud detection
+
+------------------------------------------------------------------------------------------------------------------
+
+Unsupervised Learning is used to find structure in unlabeled data
+
+K-Means Clustering
+	⁃	assign (draw random cluster centers, and assign all points to the closest cluster center)
+	⁃	optimize (minimize the total quadratic distance between a cluster center and its points... means that the cluster center will move closest to most points)
+	⁃	repeat (by the end, the cluster center will move into the center of each cluster)
+
+Issue: In K-Means, it is important that initial centroids are placed randomly. In situations where clulstering isn't obvious, initial points may dictate how the final points are split.
+
+Solution: Repeat the clustering 10 times or more, average out
+
+------------------------------------------------------------------------------------------------------------------
+
+Feature Scaling involves preprocessing features, used in some machine learning algorithms
+
+	⁃	Features may be imbalanced, take the height and the weight of a person
+	⁃	Without normalizing, the weight will dominate the equation, since the number is much larger
+	⁃	150lbs, and 5.9ft
+	⁃	feature scaling will normalize all features, shape them as values between 0 and 1
+	⁃	smallest value will get rescaled to 0
+	⁃	largest will get rescaled to 1
+
+normalized = (original - minVal) / float(maxVal - minVal)
+
+	⁃	decision trees and linear regression don't need feature scaling
+	⁃	svm and k-means clustering map features, use distance between points
+	⁃	linear regression already has a individual coefficient associated with each feature
+
+------------------------------------------------------------------------------------------------------------------
+
+Text Learning
+
+A Bag of Words is a dictionary mapping each word, to the number of times it occurs
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+	⁃	stop words are words like a, the, of that are often removed before placing into a bag of words
+	⁃	a bag of words should only take into account the stem of words, so loves, loving will be placed in the love bag
+	⁃	word order doesn't matter (algorithm called stemmer)
+	⁃	complex phrases, like Manchester United will be parsed as two separate words
+
+Python NLTK (Natural Language Toolkit) can identify and remove stopwords.
+
+Tfidf Representation (Term frequency Inverse document frequency)
+	- term frequency is like a bag of words
+	- inv document frequency places higher weights on rare words from a given corpus (email dataset)
+
+------------------------------------------------------------------------------------------------------------------
+
+Feature Selection
+
+"Make everything as simple as possible, but no simpler" Albert Einstein
