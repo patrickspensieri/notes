@@ -1,0 +1,296 @@
+// aliasing (person2 is an alias, reference to person1 object)
+// dup (creates a copy of the object)
+	person1 = "tony"
+	person2 = person1
+	person3 = person1.dup
+
+// chaining assignment statements
+	a = (b = 1 + 2) + 3
+	a => 6
+	b => 3
+// parallel assignment statements (no need for temp variable)
+	a = 1
+	b = 2
+	a, b = b, a
+	a => 2
+	b => 1
+
+// arrays
+	a = ["test", 0, 1.2]
+	a[2] => 1.2
+	// negative index, start counting from end
+	a[-1] => [1.2]
+	// a[i ... j] excludes j
+	a[0 ... 2] => ["test", 0]
+	// a[i .. j] includes j
+	a[0 .. 2] => ["test", 0, 1.2]
+	// same as a[0, 2]
+	a[0, 2] => ["test", 0, 1.2]
+	
+	//get class, length
+	puts a.class => Array
+	puts a.length => 3
+
+	b = Array.new
+	b[0] = 1
+	b[2] = 3
+	b => [1, nil, 3]
+	puts b.length => 3	
+	b.length => 3
+
+// hashes (associative arrays, key-value pairs)
+	hash = {"key" => "value",
+		"key2" => "value2"}
+	//retreival
+	hash["key"] => "value"
+	// add a new value
+	hash["key3"] = "frog"	
+	hash.class => Hash
+
+// iterate through hash
+	hash.each do |key, val|
+		puts "#{key} : #{val}"
+	end
+
+	// OR different way
+
+	hash.each {|key, val| puts key + " : " + val}
+
+// naming conventions
+	- Classes, CONSTANT (capital letters)
+	- @@classVar (static in java)
+	- $globalVar
+	- @instanceVar (regular class var)
+
+// class example
+class Coordinate
+	@@total = 0
+	def initialize (x, y)
+		@@total += 1
+		@x = x
+		@y = y
+	end	
+	def toString
+		return "(#@x, #@y)"
+	end
+	def Coordinate.total
+		return "Number of coordinates : #@@total"
+	end
+	attr_accessor :x, :y
+	# replaces the following
+	#	def setx (x)
+	#		@x = x
+	#	end
+	#	def sety (y)
+	#		@y = y
+	#	end
+	#	def getx
+	#		@x
+	#	end	
+	#	def gety
+	#		@y
+	#	end
+end
+
+// class extending example
+require "Coordinate.rb"
+class 3DCoordinate < Coordinate
+	attr_accessor :z
+	@@newtotal = 0
+	def initialize(x, y, z)
+		super(x, y)
+		@z = z
+		@@newtotal += 1
+	end
+	def toString
+		return "(#{@x}, #{@y}, #{@z})"
+	end
+	def 3DCoordinate.total
+		return "Num 3DCoordinates : #@@newtotal"
+	end
+end
+
+// extending an instance with new methods
+	// unlike Java, a class instance can be extended with new methods
+	p1 = Coordinate.new(0, 0)
+	p2 = Coordinate.new(1, 1)
+	def p1.whatAmI
+		return "I am the origin"
+	end
+
+	p1.whatAmI => I am the origin
+	p2.whatAmI => ERROR
+
+
+// puts vs print
+	- puts prints a new line (like java println)
+	- print does not (like java print)
+
+// if
+	x = 5
+	if x > 5
+		print "larger"
+	elsif x == 5
+		print "equal"
+	else
+		print "small"
+	end
+	
+	//shorthand
+	(x > 5) ? (print "greater") : (print "smaller or equal")
+
+// unless
+	x = 5
+	unless x == 5
+		print "not equal"
+	end
+
+// case
+	num = 11
+	case number
+		when 1, 3, 5, 7, 9
+			puts "odd"
+		when 0, 2, 4, 5, 6, 8
+			puts "even"
+		else
+			puts "number out of range"
+	end
+
+// while
+	while (x < 10)
+		puts "#{x} is less than 10"
+		x += 1
+	end
+
+// until (negated while, stop when something becomes true)
+
+// iterator loops
+	3.times {|x| puts x} => 0 1 2
+	1.upto(5) {|x| puts x} => 1 2 3 4 5	
+	x = 4
+	x.downto(2) {|x| puts x} => 4 3 2
+	4.step(10, 2) {|x| puts x} => 4 6 8 10	
+	a = [1, 5, 9]
+	
+	a.each {|x| print x + " "} => 1 5 9
+	// OR
+	for el in [1, 2, 3]
+		print el + " "
+	end
+
+	// collect
+	print ["A", "B", "C"].collect {|x| x.succ} => ["B", "C", "D"]
+
+	// find (returns first occurence that satisfies expression)
+	print [1, 2, 4].find {|x| x % 2 == 0} => 2
+	print [1, 4, 2].find {|x| x % 2 == 0} => 4
+	
+
+// modules
+	- can encapsulate CONSTANTS and METHODS
+	- cannot be INSTANTIATED
+	- cannot participate in INHERITANCE
+
+	module MathLibrary
+		PI = 3.14
+		def MathLibrary.factorial(n)
+			(n == 0) ? 1 : n * factorial(n - 1)
+		end
+	end
+	
+	puts MathLibrary::PI => 3.14
+	puts MathLibrary.factorial(5) => 120
+
+	// Ruby's Math module
+	puts Math.sqrt(9) => 3
+	// if a class uses a module often, import and no need to rewrite
+	import Math
+	puts sqrt(9) => 3
+
+	// imported as a mixin, functionality is inherited, but never instantiated
+	// name collisions are resolved by module that is imported last (overwrites previous)
+
+// regular expressions
+	
+	/Lisp|Lava/	containing Lisp, or Lava
+	/L(isp|ava)/	same as above
+	/ab+c/		containing a, followed by 1+ b, followed by a c
+	/ab*c/		containing a, followed by 0+ b, dollowed by a c
+	.		matches any char
+	/[Colloqui[um|a]/	matches Colloquim, or Colloquia
+
+// access rights
+	- methods are public by default, except for initialize (always private)
+	- protected only invoked by class, and subclasses
+	- private only by class
+	- two ways of defining access rights
+
+
+	# METHOD 1
+	def MyClass
+		# by default methods are public
+		def method1
+			...
+		end
+		protected
+		# following methods are protected
+		def method2
+			...
+		end
+		private
+		# following methods are private
+		def method3
+			...
+		end
+		public
+		# following methods are public
+		def method4
+			...
+		end
+	end
+
+	#METHOD 2
+	class MyClass
+		def method1
+			...
+		end
+		def method2
+			...
+		end
+		...
+		public :method1
+		protected :method2, :method4
+		private :method3
+	end
+
+// introspection (object can consult, but not modify its structure)
+	- what the object contains
+	- how is it structured
+	- contenets and behaviour
+	
+	// going back to Coordinate class example
+	// we can inspect all system objects of type Coordinate
+	// note that 3DCoordinate is_a Coordinate
+
+	ObjectSpace.each_object(Coordinate) {|p| puts p.inspect}
+		=> <3DCoordinate:0x28455d8 @y=0, @z=0, @x=0>
+		=> <Coordinate:0x28455d8 @y=0, @x=0>
+
+	// check if an object can handle a message
+	puts p1.respond_to?("whatAmI") => true
+	// other information, like class, id, place queries
+	puts p1.id			=> 211113770
+	puts p1.class			=> Coordinate
+	puts p2.class			=> 3DCoordinate
+	puts p1.instance_variables	=> @y @x
+	puts p2.kind_of? Coordinate	=> true
+	puts p2.instance_of? Coordinate	=> false
+	puts p1.kind_of? 3DCoordinate	=> false
+	
+	// inquire about class hierarchy
+	puts 3DCoordinate.superclass	=> Coordinate
+	// inquire about class features
+	puts 3DCoordinate.private_instance_methods	=>
+	puts 3DCoordinate.class_variables		=> @@total
+	
+

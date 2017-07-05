@@ -1,0 +1,177 @@
+	// x is a variable, while 'x is a char
+	(list 'x 1 2) = (X 1 2)
+	(list x 1 2) = assumes X is a variable
+
+// list vs append
+	(list '(1 2) '(3 4)) = ((1 2) (3 4))
+	(list '(+ (1 + 4)) (* 4 4)) = ((+ (1 + 4)) 16)
+	(append '(1 2) '(3 4)) = (1 2 3 4)
+	(append '(1 2) '((3 4))) = (1 2 (3 4))
+	(append '() '(1 2)) = (1 2)
+	(append 1 '(2 3)) = ERROR : 1 is not a list
+
+//cons 	... takes two arguments, sets first as new head of list
+	(setf x '(1 2 3 4))
+	(cons (car x) (cdr x)) = (1 2 3 4)
+
+//if vs cond
+	(if (conditon) (then) (else - optional))
+	(cond ((if1) (then1)) ((if2) (then2)) (t (then)))
+
+//let - binding
+	(let ((binding1) (binding2)) (expression)
+	(let ((x 5)) (* x x)) = 25
+	(let (x 5) (* x x)) = ERROR (missing double brackets)
+	(let ((x 5) (x 6)) (* x x)) = 36
+	//nested example
+	(let ((x 5)) (let ((y x)) (* y y))) = 25
+	(let ((x 1)) (let ((x (+ x 1))) (+ x x))) = 4
+	//nested example, using let* - equivalent to nested lets above
+	(let* ((x 5) (y x)) (* y y)) = 25
+	(let* ((x 1) (x (+ x 1))) (+ x x)) = 4
+
+//not a purely functional language, because of global variables
+	//GLOBAL VARIABLES
+	(setf x '(1 2 3))
+	
+	//REFERENTIAL TRANSPARENCY = NoSideEffects AND Determinate
+	//determinate meaning function will always return the same result
+	//pure functions that can be swapped for their value to speed up runtime
+	(* 5 5) replaced by 25
+	(sin x) replaced by value at x
+
+	length(str) = PURE, return value always same, without side effects
+	today() = IMPURE, different results at different times
+	random() = IMPURE, different results
+	print(str) = IMPURE, causes side effects
+
+	//HIGHER ORDER FUNCTIONS 	= FunctionAsInput OR FunctionAsOutput
+	(mapcar #'* '(2 3) '(10 10)) = (20 30)
+
+//eql (same object) vs equal (same value)
+	(setf x '(1 2 3))
+	(setf y '(1 2 3))
+	(equal x y) = T
+	(eql x y) = F
+	
+	(setf y x)
+	(equal x y) = T
+	(eql x y) = T
+
+	//note different behaviour for primitives
+	(setf x 5)
+	(setf y 5)
+	(equal x y) = T
+	(eql x y) = T
+
+//using setf to modify a list
+	(setf x '(1 2 3))
+	(setf (car x) '(a))
+	x = ((A) 2 3)
+
+//loops
+	(loop 
+		(if (> x 5) (return))
+		(print x)
+		(incf x)) = 1 2 3 4 5 NIL
+
+//CLOS (Common Lisp Object System) is an extension of Lisp
+
+	//defining a class
+	(defclass semaphore ()
+		((count	:accessor semaphore-count
+				:initform 0)
+		(name	:reader semaphore-name
+				:initarg	:name)))
+
+	⁃	all instances of semaphore have the same structure
+	⁃	structure is composed of slots, key value pairs that describe instance state
+	⁃	:initform (specify default values only)
+	⁃	:initarg :name (allows user to specify a value as argument)
+	⁃	:accessor (creates methods to read and write)
+	⁃	:reader (creates read method only)
+
+	//without the use of constructos
+	(setf s (make-instance 'semaphore))
+	(setf s (make-instance 'semaphore :name 'testName))
+
+	//create a constructor function
+	(defun make-semaphore (name)
+		(make-instance 'semaphore :name name))
+	//create a semaphore using the constructor
+	(setf s (make-semaphore 'testName))
+
+	//reading and writing to :accessor slot
+	(setf (semaphore-count s) 1)		//write
+	(semaphore-count s)				//read
+
+	//reading from :reader slot
+	(semaphore-name s)					//same as reading from accesssor
+
+	⁃	methods can also be created to work with classes
+	⁃	methods are not encapsulated within classes, but work on them
+	⁃	three types of auxiliary methods exist
+	⁃	:before (runs before primary)
+	⁃	:after (runs after primary)
+	⁃	:around (runs instead of primary, often a wrapper around the original logic that is more user friendly)
+	⁃	(call-next-method) invokes the primary method if :around is used
+
+	//class definition
+	(defclass semaphore () ...)
+	
+	//constructor function
+	(defun make-semaphore (name) ... )
+	
+	//create method to increment the semaphore-count
+	(defmethod increment ((sem semaphore))
+		(setf (semaphore-count sem) (+ 1 (semaphore-count sem))))
+
+	//ADT for Stack data structure
+	(defclass stack ()
+		((elements	:accessor stack-elements
+					:initarg :elements
+					:initform '())
+		(size		:accessor stack-size
+					:initarg :size	
+					:initform 0)
+		(capacity	:accessor stack-capacity
+					:initform 3
+					:allocation :class)))
+
+	//IMPLEMENTATION of ADT for Stack data structure
+	(defmethod push ((s stack) el)
+		(setf (stack-elements s) (cons el (stack-elements s))
+		(setf (stack size s) (+ 1 (stack-size s))))
+
+	(defmethod pop (s stack)
+		(let ((val (car (stack-elements s))))
+			(setf (stack-elements s) (cdr (stack-elements s)))
+			(setf (stack-size s) (- (stack-size s) 1))
+			val))
+
+	(defmethod isempty ((s stack))
+		(zerop (stack-size s)))
+
+	(defmethod isfull ((s stack))
+		(= (stack-size s) (stack-capacity c)))
+
+	(defmethod top ((s stack))
+		(car (stack-elements s)))
+
+	//AUXILIARY METHODS in Stack implementation
+	(defmethod push :around ((s stack) el)
+		(if (isfull s)
+			"The stack is already full."
+			(call-next-method s el)))
+
+	(defmethod pop :around ((s stack))
+		(if (isempty s)
+			"Stack is empty."
+			(call-next-method s)))
+
+	(defmethod top :around ((s stack))
+		(if (isempty s)
+			"Stack is empty."
+			(call-next-method s)))
+	
+

@@ -1,0 +1,317 @@
+// TO COMPILE
+gcc program.c -o program
+// TO RUN
+./program
+
+// FUNCTIONS
+	returnType functionName (type1 param1, type2 param2) {body}
+
+		- if no param type is listed, int is assumed
+		- if function used before it is declared, one must define the form
+	
+		returnType functionName (type param) ;
+
+// EXAMPLE PROGRAM
+
+	#include{stdio.h>
+	// prototype for factorial method, which is used before declaration
+	// without prototype, warning appears when code is compiled
+	long factorial(int);	
+	// main method
+	int main() {
+		int n;
+		long f;
+		printf("enter non-negative integer : ");
+		scanf("%d, &n);
+		if (n < 0)
+			printf("negative integer not allowed.\n");
+		else {
+			f = factorial(n);
+			printf("%d! = %ld\n", n, f);
+		}
+		return 0;
+	}
+	// recursive factorial method
+	long factorial (int n){
+		if (n == 0)
+			return 1;
+		return (n * factorial(n-1));
+	}
+
+// VARIABLES
+	
+	- global variables declared at top of program
+	- scope of local variables limited to function from which they are defined
+	- shadowing => if same name used, local variable presides over global
+	- global vars have default initializations, whereas local ones do not
+
+// VISIBILITY OF VARIABLES AND FUNCTIONS
+	
+	- EXTERN modifier means a var or func is defines outside of current file
+	- STATIC means var or func is visible only from within file it is defined in
+	- DEFAULT means var or func is defines within file, but accessible from other as well
+
+// DATA TYPES
+
+	types =>int, float, double, char
+	specifiers => short, long, signed, unsigned
+		- short int < int < long int
+		- float < double < long double
+		- short int from approx. -32000 to 32000
+		- unsigned short int from approx 0 to 65000
+
+	coercion => automatic type conversion by compiler (type casting)
+		int intvar;
+		float floatvar = 3.99;
+		intvar = floatvar;
+			flatvar => 3.99
+			intvar => 3	
+
+	constant => immutable value
+		float const PI = 3.14;
+		OR
+		#define TRUE 1
+
+	composite types (data structure)
+		- composed of primitive or other composite types
+		- arrays are composite
+
+// POINTER
+
+	- POINTER is a type that stores the address of another value, effectively pointing to it
+	- POINTER VARIABLE (or an address variable) are declared using *
+	- following statement is a pointer to an int value
+		int *ptr;
+
+	- * DEREFERENCE operator, get the value at the address
+	- & ADDRESS_OF operator, use, or return the address being pointed to
+
+	#include<stdio.h>	
+	int main() {
+		int a = 42;	//assign a to 42
+		int *p;		//pointer p points to int object
+		p = &a;		//pointer p points to address of a
+		//deferencing pointer p, accessing object being pointed at
+		//prints => p: 42
+		printf("p : %d\n", *p);		
+		return 0;
+	}
+
+
+	int var = 13;		//integer variable, value of 13
+	int *ptr = &var;	//integer pointer, assigned address of var
+	*ptr = 17;		//object pointed to by p is assigned value of 17
+	printf("var : %d\n", var);	//prints => var : 17
+	
+	//the following statement asks "What is var pointing to?"
+	*var =>ERROR because var is not a pointer
+	
+	//will get the address of a pointer, legal but strange
+	&ptr
+
+	//will	not compile, pointer conversion error
+	ptr = a
+	
+	// will not compile, because adress is not assignable
+	&ptr = &a
+	&a = &b
+
+	// pointer to a pointer
+	int *ptr = &a;
+	int **ptr2 = &ptr;
+	
+	// will not compile
+	int *ptr = &a;
+	int *ptr2 = &ptr;
+	
+	// ALIASING => When a single address is pointed to by several variables
+	
+	#include<stdio.h>
+	int main() {
+		int a = 7;
+		int *ptr;	//declaring pointer type int
+		ptr = &a;	//ptr points to address of a
+	7 =>	printf("a : %d\n", a);
+	7 =>	printf("a : %d\n", *ptr);	//value of object being pointed to
+		a = 9;
+	9 =>	printf("a : %d\n", a);
+	9 =>	printf("a : %d\n", *ptr);	//value of object being pointed to
+		*ptr = 11;			//value at object being pointed to
+	11 =>	printf("a : %d\n", a);
+	11 =>	printf("a : %d\n", *ptr);	//value at object being pointed to
+		return 0;	
+	}
+
+// CONSTANT POINTERS, POINTERS TO CONSTANTS, AND CONSTANT POINTERS TO CONSTANTS
+
+	NOTE : ANY TIME YOU DECLARE A CONSTANT, MUST BE ASSIGNED A VALUE OR COMPILER ERROR
+	// int const cint;		=> error, must instantiate
+	// int const cint = 1;	=> good
+	// int * const ptr;		=> error, must instantiate
+	// int * const ptr = &cint;	=> good
+	
+	int a = 3;
+	int const b = 5;
+	int c = 7;
+	
+	// declaring CONSTANT POINTER of integer type, pointing to address of a
+	// cannot change the address pointer holds, but can change the value of the object
+	
+	int * const ptr1 = &a;
+	
+	ptr1 = &c; 	=> ERROR FROM COMPILER
+			=> Assignment to CONSTANT IDENTIFIER
+
+	// declaring POINTER OF CONSTANT integer type
+	// can change the address pointer holds, but not the value of the object
+	
+	int const * ptr2 = &b;
+	
+	*ptr2 = 7;	=> ERROR FROM COMPILER
+			=> Assignment to CONSTANT LOCATION
+	
+	ptr2 = &a;	//we are allowed to change contents of pointer
+	*ptr2 = 11;	=> ERROR : Assignment to constant location
+
+	// declaring CONSTANT POINTER OF CONSTANT integer type
+	// cannot change the address pointer holds, nor the value of object
+	
+	int const * const ptr3 = &b;
+	
+	ptr3 = &a;	=> ERROR : Assignment to constant identifier
+	*ptr3 = 9;	=> ERROR : Assignment to constant location
+
+	1.	Constant pointer			=> * const ptr
+	2.	Pointer to constant			=> const * ptr
+	3.	Constant pointer to constant		=> const * const ptr
+
+// POINTERS AND ARRAYS
+
+	- elements of arrays are assigned consecutive memory values
+	- hence, one can set pointer to beginning address and increment to iterate
+	- dereferencing the pointer means accessing array elements
+	
+	int arr[5];
+	int *ptr = &arr[0];
+	arr[1] EQUIVALENT TO *(ptr + 1);
+
+// POINTERS AND FUNCTION PARAMETERS
+	
+	- see swap(int *a, int *b) program
+	- treat parameters as pointers if you want to actually work on the arguments,
+		and not copies of them
+	- in a swap algorithm, you actually want to swap the values of the parameters
+
+// FUNCTION POINTERS
+	
+	- pointer can hold address of a function, just like a variable
+	
+	// function pointer points to function that takes int as argument, and returns long
+	long (*fptr)(int);
+	fptr = &factorial;
+	
+	//function can be invoked by INDIRECT CALL
+	fptr(5); => 120	
+
+// RECORDS (STRUCTURES)
+
+	struct box {
+		float x
+		float y;
+	};
+	struct box b1;
+
+	// to avoid using struct keyword every time you refer to the struct, create a new type
+	typedef struct {
+		float x;
+		float y;
+	} box;
+	box b2;		//no need to type "struct" box b2
+
+	// INITIALIZATION (Inline OR Initializer)
+		
+	box b1 = {5, 4};			//inline
+	box b2 = {.x = 5, .y = 4};	//initializer
+
+	b2.x = 2;
+	
+	// copy values from one record to another
+	b1 = b2;
+
+	// pointer to a record
+	box *ptr = &b1;
+	
+	// dereferencing pointer to a record
+	(*ptr).x = 3;
+		// OR alternative form
+	ptr->x = 3;
+
+// ARRAY OF RECORDS
+	
+	box boxes[2] = { {2, 3}, {5, 7}};
+	printf("Box 1 : (%d, %d) and Box 2 : (%d, %d)\n", boxes[0].x, 
+		boxes[0].y, boxes[1].x, boxes[1].y}; 
+
+// MEMORY MANAGEMENT (not on exam)
+
+	- when you create an array, size must be specified so consecutive slots can be allocated
+
+	// EXAMPLE
+	
+	#include <stdio.h>
+	#include <stdlib.h>
+	int main() {
+		//IF SUCCESS then *arr is pointer to beginning of array block
+		//ELSE returns null
+		int *arr = malloc(3 * sizeof(int));
+		if (*arr == null){
+			printf("ERROR : Out of memory\n");
+			return 1;
+		}
+		*arr = 1;
+		*(arr + 1) = 3;
+		*(arr + 2) = 5;
+		printf("arr[0] %d, arr[1] %d, arr[2] %d", *arr, *(arr + 1), *(arr + 2));
+		
+		// FREE THE MEMORY WHEN NO LONGER NEEDED
+		free(arr);
+		return 0;
+	}
+	
+// DATA STRUCTURES AND ABSTRACT DATA TYPES
+
+	- an ADT is a definition of a data type, acts as interface
+	- hence, an ADT is implementation dependent
+	- data structure is an implementation of an ADT
+	- information hiding => implementation details hidden from ADT users
+	- changes to data structure do not affect users, as long as interface is maintained
+
+	// LINKED LIST
+	
+	deftype struct {
+		int data;
+		node *next;
+	} node;
+	
+	// when list is empty, head pointer points to NULL
+	node *head = NULL;
+
+	// request memory for the head of the list
+	head = malloc(sizeof(node));
+	if(head == null)
+		printf("ERROR : Out of memory");
+		return 1;
+	}
+	(*head).data = 5;		//brackets are necessary
+	head-> next = NULL:
+	node *new;
+	(*new).next = head;
+	head = new;
+
+
+
+
+
+
+
+	
