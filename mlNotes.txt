@@ -138,3 +138,71 @@ Tfidf Representation (Term frequency Inverse document frequency)
 Feature Selection
 
 "Make everything as simple as possible, but no simpler" Albert Einstein
+
+	- remove unecessary features, add new ones
+	- if a feature has 100 percent correspondence with labels, then you dont need machine learning
+	- remove features when they cause overfitting, they are too noisy or closely correlated to other features
+	- in sklearn, SelectPercentile and SelectKBest can be used for feature selection
+	- especially useful when working with rich data like text or images
+	- using too few features will steer toward high bias
+
+	high bias => doesn't pay attention to data (very high error on training)
+	high variance => overfitting (very low error in training)
+
+	regularization => balancing number of features and error
+
+	- Lasso Regression minimizes SSE, like all regression except also tries to minimize num features
+	- accomplishes this by taxing each additional feature being used (set coefficients of those features to 0)
+	- can get the importance of each feature in scikit learn
+
+
+------------------------------------------------------------------------------------------------------------------
+
+PCA - Principal Component Analysis
+
+	PCA is used for
+	- transforming input features into Principal Components
+	- compressing data while keeping trends by reducing dimensionality of data
+	- PCs are directions with maximum variance in data
+	- projecting/collapsing all other points onto the PC line minimizes information loss
+	- PCs can be ranked by variance, more than one but they must all be perpandicular
+	- max num PCs = number of input features (using all of them results in no compression)
+
+	What does VARIANCE V(X) have to do with PCA?
+	- goal is to rotate x and y axis, so that x axis is following general direction of data
+	- calculated by finding line that has the highest spread, variance
+	- choosing this line to place x-axis minimizes data loss
+	- origin of graph placed over the center of mass
+	- major axis dominates if the data looks like a line, less if oval
+	- if circle, then variance is equal in all directions, lots of data loss
+
+	When to use PCA?
+	- dimensionality reduction of data, makes it easier to visualize
+	- reduce noise (discarding weak PCs, keeping strongest trends)
+	- preprocessing data to improve performance of other algorithms
+	- Never perform feature selection before PCA, will lose data
+
+	NOTE
+	- When you fit the PCA, you must "transform" the data for actual compression to occur
+	- When testing, don't fit PCA to testing features, but you must transform
+
+------------------------------------------------------------------------------------------------------------------
+
+Validation
+
+	If training is complete using PCA and SVM
+	- DO NOT fit PCA to test data (unfair advantage)
+	- DO transform test data (dimensionality reduction to ensure form of data is the same)
+
+	Question => How can data be transformed without being fit?
+
+	K-fold Cross Validation
+	- To increase accuracy, cross validation allows algorithm to both train and test on all data
+	- Split into k bins, and train on k-1 bins, test on other
+	- repeat the process k times and take the average	
+	- when forming bins, it is important to randomize to eliminate any patterns
+
+	Optimization of parameters
+	- Cross validation can also be used to optimize parameters automatically, see GridSearchCV
+
+

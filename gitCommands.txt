@@ -74,6 +74,15 @@ delete untracked files
 	//to delete untracked files
 	git clean -f
 
+delete tracked files
+	git rm fileName
+
+initialize a git repo
+	git init
+
+connect git repo to github
+	git remote add origin https://github.com/username/repo
+
 vim fileName.txt (to start vim editor on Mac)
 	i (insert before cursor mode)
 	a (append after cursor mode)

@@ -1,0 +1,28 @@
+ARITHMETIC ---------------------------------------------------------------------------
+
+# exponents
+print(3**2)
+	9
+# integer division
+print(15 // 4)
+	3
+
+# Division in Python 2 vs 3
+	# Python 2 / is like // in Python 3
+	print(16/4)
+		4   # Python 2 (int)
+		4.0 # Python 3 (float)
+
+# casting types
+int(49.7)
+	49
+float(234+1)
+	235.0
+
+ERRORS -------------------------------------------------
+
+SyntaxError : found when python checks code before running
+NameError : undefined var, starting var with anything other than letter, or underscore
+
+
+

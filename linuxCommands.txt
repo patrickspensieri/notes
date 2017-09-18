@@ -1,0 +1,11 @@
+get memory usage (in MB)
+	free -m
+
+see used ports
+        sudo lsof -i -P -n | grep LISTEN
+
+kill a process using a given port
+	sudo fuser -k 80/tcp
+
+kill a process using a given process id
+        pid sudo kill
