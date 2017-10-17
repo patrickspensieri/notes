@@ -10,10 +10,6 @@ show all branches
 show all branches, verbose
 	git branch -vv
 
-pull new branch
-	git fetch
-	git checkout newBranchName
-
 change branch
 	git checkout branchName
 
@@ -27,6 +23,7 @@ delete local branch
 	git branch -D localBranchName
 
 pull remote branch
+	git fetch
 	git checkout branchName
 
 delete remote branch

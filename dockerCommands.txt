@@ -31,8 +31,16 @@ get logs for a given container
 exit container, leave running in background
 	CTRL+P, CTRL+Q
 
-get inside running container? 
-	docker attach containerName
+enter running container 
+	docker exec containerName bash
+	alternative? (docker attach containerName)
+
+exit running container
+	exit
+
+docker network commands
+	docker network ls
+	docker network inspect networkName
 
 remove all <none> images, generated when image builds are interrupted
 	docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
@@ -107,3 +115,12 @@ Following the "Host multiple websites with HTTPS on a single server" page
 
 1. docker search jwilder/nginx-proxy
 2. docker pull jwilder/nginx-proxy
+
+---------------------------------------------------------------
+	DOCKER-COMPOSE NOTES
+---------------------------------------------------------------
+
+image		=> container content, pulled from docker hub
+ports		=> ports exposed from the host, to the container "HOST_PORT:CONTAINER_PORT"
+volumes		=> shared content between the host, and the container
+links		=> aliases to containers from another service

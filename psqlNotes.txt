@@ -1,0 +1,59 @@
+start/stop psql service with brew
+	brew services start/stop psql
+
+create a new user
+	createuser --pwprompt username
+
+create a new database, and set the owner
+	createdb -Ousername -Eutf8 dbname
+
+delete a database
+	dropdb dbname
+
+list all database info
+	psql -l
+
+access the database
+	psql -U username dbname
+
+show all table info
+	\dt
+
+show specific table details
+	\d tableName
+
+exit psql shell
+	Ctrl + d
+	\q + ENTER
+
+-- EXAMPLES -----------------
+
+CREATE TABLE monitors (
+    id        	bigserial primary key NOT NULL,
+    name      	varchar(40) NOT NULL,
+    price  	integer NOT NULL
+);
+
+INSERT INTO monitors (name, price) VALUES ('LG_24', 150);
+INSERT INTO monitors (name, price) VALUES ('Samsung UHD', 255);
+
+SELECT * FROM monitors WHERE id=2;
+
+ALTER TABLE monitors ADD COLUMN year INTEGER NOT NULL;
+
+//to make column name case sensitive (applies elsewhere)
+ALTER TABLE desktop RENAME columnname TO "columnName";
+ALTER TABLE desktop 
+	ALTER COLUMN stock SET NOT NULL,
+	ALTER COLUMN dimensions TYPE character varying(15);
+
+
+CREATE TABLE users (
+	id bigserial primary key not null,
+	email varchar(40) unique,
+	"firstName" varchar(40) not null,
+	"lastName" varchar(40) not null,
+	address varchar(40) not null,
+	"phoneNumber" integer not null,
+	"isAdmin" boolean not null default false,
+	password varchar(120) not null);
