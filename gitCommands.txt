@@ -29,6 +29,12 @@ pull remote branch
 delete remote branch
 	git push origin --delete remoteBranchName
 
+compare file between branches
+	git diff branchName master -- fileName.txt
+
+rename a file
+	git mv fileName newName
+
 merging branches
 	git checkout master
 	git merge fixesBranch
@@ -43,7 +49,7 @@ stashing/popping files
 	//get the stashed file back
 	git stash pop 
 
-list and drop stashed files
+list and drop(deleting) stashed files
 	git stash list
 	//stash@{0}: branchName: 0234h32 fixed bug
 	git stash drop stash@{0}

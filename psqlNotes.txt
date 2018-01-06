@@ -47,13 +47,20 @@ ALTER TABLE desktop
 	ALTER COLUMN stock SET NOT NULL,
 	ALTER COLUMN dimensions TYPE character varying(15);
 
-
 CREATE TABLE users (
 	id bigserial primary key not null,
 	email varchar(40) unique,
-	"firstName" varchar(40) not null,
-	"lastName" varchar(40) not null,
+	firstname varchar(40) not null,
+	lastname varchar(40) not null,
 	address varchar(40) not null,
-	"phoneNumber" integer not null,
-	"isAdmin" boolean not null default false,
+	phonenumber integer not null,
+	isadmin boolean not null default false,
 	password varchar(120) not null);
+
+CREATE TABLE activeusers (
+	user_id bigserial primary key not null,
+	sessionid varchar(60));
+
+UPDATE activeusers
+SET sessionid=NULL
+WHERE user_id=1;

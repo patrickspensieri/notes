@@ -1,0 +1,41 @@
+login to heroku
+	heroku login
+
+create a heroku project
+	heroku create projectname
+
+push git repo to heroku project, master branch (from root to git repo)
+	git push heroku branchname:master
+
+scale heroku project
+	heroku ps:scale web=1
+
+open heroku project
+	heroku open
+
+see heroku addons
+	heroku addons
+
+add heroku-postgresql addon (hobby tier)
+	heroku addons:create heroku-postgresql:hobby-dev
+
+pull from remote database (default username, no password)
+	heroku pg:pull postgresql-vertical-61780 localDatabase --app patrick-test-soen343
+
+push to remote database
+	heroku pg:push localDatabase postgresql-vertical-61780 --app patrick-test-soen343
+
+clear a remote database
+	heroku pg:reset postgresql-vertical-61780
+
+documentation for Heroku Postgres
+	https://devcenter.heroku.com/articles/heroku-postgresql
+
+log into local psql database
+	psql -d dbName -U userName
+
+-----------------------------------------------
+
+	heroku pg:psql postgresql-octagonal-17748 --app salty-shore-75817
+
+	heroku pg:pull postgresql-octagonal-17748 localDatabaseName --app salty-shore-75817
