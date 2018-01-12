@@ -4,10 +4,6 @@ mySQL NOTES
 	primary keys must be unique
 	databases consist of tables
 
-run mysql (MAMP instance)
-	/Applications/MAMP/Library/bin/mysql -uUsername -p
-	(enter password)
-
 show databases
 	show databases;
 
@@ -37,12 +33,12 @@ create table
 add an entry (whitespace doesn't matter, quotations vary according to type)
 	INSERT INTO tableName VALUE(
 		'Patrick',
-		'patrick.spensieri@gmail.com',
-		'5149129867',
+		'patrick@test.com',
+		'1234567010',
 		'QC',
-		78912,
+		33334,
 		NOW(),
-		"1995-01-01",
+		"2000-01-01",
 		NULL //primary key will be auto created and incremented
 	);
 
