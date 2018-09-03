@@ -6,8 +6,7 @@ activity log
 
 show all branches
 	git branch
-
-show all branches, verbose
+	// show all branches
 	git branch -vv
 
 change branch
@@ -32,6 +31,15 @@ delete remote branch
 compare file between branches
 	git diff branchName master -- fileName.txt
 
+rename a local and remote branch
+	// rename the local branch
+	git branch -m old-name new-name
+	// delete the old-name remote branch, push the new-name local one
+	git push origin :old-name new-name
+	// reset the upstream branch for the new-name local branch
+	git checkout new-name
+	git push origin -u new-name
+
 rename a file
 	git mv fileName newName
 
@@ -47,7 +55,7 @@ stashing/popping files
 	//make changes
 	//git checkout originalBranch
 	//get the stashed file back
-	git stash pop 
+	git stash pop
 
 list and drop(deleting) stashed files
 	git stash list
@@ -59,8 +67,20 @@ staging/unstaging files
 	git add fileName
 	git reset fileName
 
-add and commit all files
-	git commit -am "commit message"
+discard all unstaged changes
+	// stash all the unstaged changes being tracked
+	git stash save --keep-index
+	// discard the stash
+	git stash drop
+
+commit a multiline message with editor
+	git commit
+
+commit a multiline message that starts with a hastag in vim
+	// often, commit messages start with #issueNumber
+	git commit --cleanup=whitespace
+	// remove all undesired lines starting with #
+	// enter formatted commit message, save and exit vim
 
 hard reset branch to last commit
 	git reset HEAD --hard
@@ -85,28 +105,3 @@ initialize a git repo
 
 connect git repo to github
 	git remote add origin https://github.com/username/repo
-
-vim fileName.txt (to start vim editor on Mac)
-	i (insert before cursor mode)
-	a (append after cursor mode)
-	v (visual mode)
-	esc (back to normal mode)
-	:x (save and quit)
-	:q (quit without saving)
-
-git show commitID (shows changes made by a given commit)
-
-Example of a efficient, basic workflow used by Codemy:
-
-	Master —> Develop —> featureBranch
-	
-	New features are developed in isolation, then merged with Develop.
-	
-	Master ——> Production Server
-	Develop ——> Staging Server
-	
-	This enables Develop to be tested before integration with production
-	The client can use this server to review code, give opinion
-	Once approved, the Develop branch is merged with the Master
-
-

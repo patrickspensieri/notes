@@ -9,3 +9,10 @@ kill a process using a given port
 
 kill a process using a given process id
         pid sudo kill
+
+find files by filtering file names
+	// remove -maxdepth to enable recursion
+	find /search/directory -maxdepth 1 -name "*contains_string*" -print
+	// find files that do not contain a given string
+	find /search/directory -maxdepth 1 -name "*contains_string*" ! -name "*excludes_string*" -print
+

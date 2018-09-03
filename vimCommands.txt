@@ -1,0 +1,42 @@
+save and quit
+	:wq
+
+quit
+	:q!
+
+search
+	// will return instances of 'word1' and 'word2'
+	/word
+
+strict search
+	// will not return instances of 'word1' and 'word2'
+	// '\<' marks the beginning, and '>\' the end of the search
+	/\<word>\
+
+move to next, previous search results
+	n (next)
+	N (previous)
+
+search for current word
+	// position cursor on desired word
+	* (next instance)
+	# (previous instance)
+
+move to end of file
+	<ESC>GA (ESC + Shift + g + a)
+
+highlight text
+	v + cursors (hold v and move cursors)
+
+copy text
+	y (once text is highlighted)
+
+---------------------------------------------------
+
+        i (insert before cursor mode)
+        a (append after cursor mode)
+        v (visual mode)
+        esc (back to normal mode)
+        :x (save and quit)
+        :q (quit without saving)
+

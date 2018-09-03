@@ -1,0 +1,73 @@
+start using git-flow within a git repository
+	// if an existing repository, will need to be adapted
+	// it is recommended to keep default values
+	git flow init
+
+print feature branches
+	git flow feature
+
+create a new feature branch
+	// creates branch feature/my-feature
+	git flow feature start my-feature
+
+publish a feature branch
+	git flow feature publish my-feature
+
+pull a feature published by another user
+	git flow feature pull origin my-feature
+
+finish a feature branch
+	// merges feature/my-feature back into develop
+	// removes the feature/my-feature branch
+	git flow feature finish my-feature
+
+start a release
+	// creates a release branch, branching from develop
+	// optionally, pass a sha-1 hash from which the release will be started
+	git flow feature start release [base]
+
+publish a release branch
+	git flow release publish release
+
+finish a release
+	// merges release branch back into master
+	// tags the release with its name
+	// merges the release back into develop
+	// removes the release branch
+	git flow release finish release
+	// don't forget to push the tags
+	// tags mark releases, they're like branches that do not change
+	git push --tags
+	
+start a hotfix
+	// branches off master to fix a production issue
+	// the version marks the hotfix release name
+	git flow hotfix start my-version
+
+finish a hotfix
+	// merges the hotfix back into master, and back into develop
+	git flow hotfix finish my-version
+
+start using git-flow within an existing git repository
+	// credit to https://gist.github.com/kevinold/538326
+	
+	// assuming git repository created
+	$ git branch
+		develop
+		* master
+		my-feature
+	$ git flow init
+		// keep defaults
+	$ git branch -m my-feature feature/my-feature
+		// renames local branch
+	$ git push origin :my-feature feature/my-feature
+		// delete the old remote branch and push the new renamed branch
+	$ git push origin -u feature/my-feature
+		// reset the upstream for the new local branch to the new one pushed to remote
+		
+	$ git branch
+		develop
+		feature/my-feature
+		* master
+	$ git flow feature
+		my-feature

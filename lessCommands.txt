@@ -1,0 +1,22 @@
+- Both vim and less are based on vi, written for Unix
+- less is typically used to view files such as logs
+
+exit less
+  :q
+
+trace a log file as it updates
+  less +F fileName.txt
+  // with highlight of current line
+  less -W +F fileName.txt
+
+move from tracing into regular mode
+  Ctrl + C
+
+move from regular mode into trace mode
+  F
+
+tracing multiple log files
+  // tail -f is more user friendly than less for this
+  // will show updates, along with the file name
+  // not sure if this works on files in different directories
+  tail -f *.txt
