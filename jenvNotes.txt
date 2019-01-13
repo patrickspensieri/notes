@@ -1,0 +1,45 @@
+// How to install and manage various jdk versions on macOS?
+//	source : https://stackoverflow.com/questions/26252591/mac-os-x-and-multiple-java-versions
+
+// Uninstall existing jdk
+	// if downloaded from Oracle
+	sudo rm -rf /Library/Java/JavaVirtualMachines/jdk1.8.0_11.jdk/Contents/Home
+
+	// if downloaded from Apple, path is different
+	/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/
+
+	// get paths of installed versions
+	/usr/libexec/java_home -V
+
+// install jenv with homebrew
+	brew install jenv
+	
+	// update bash profile
+	echo ‘export PATH=”$HOME/.jenv/bin:$PATH”’ >> ~/.bash_profile
+	echo ‘eval “$(jenv init -)”’ >> ~/.bash_profile
+	source ~/.bash_profile
+
+// add homebrew/cask-versions tap to homebrew
+	brew tap homebrew/cask-versions
+
+// search for available java versions
+	brew search java
+
+// install desired jdk version
+	brew cask install java6
+
+// install latest jdk version
+	brew cask install java
+
+// manage the installation with jenv
+	jenv add <javaVersionPath>
+	jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+
+// list managed jdks
+	jenv versions
+
+// set global jdk version
+	jenv global oracle64-1.6.0.39
+
+// set a local jdk version, specific to current path
+	jenv local oracle64-1.6.0.39

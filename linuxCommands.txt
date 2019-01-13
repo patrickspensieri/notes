@@ -1,6 +1,9 @@
 get memory usage (in MB)
 	free -m
 
+check storage usage, formatted
+	df -H
+
 see used ports
         sudo lsof -i -P -n | grep LISTEN
 
