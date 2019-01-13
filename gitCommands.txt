@@ -73,6 +73,12 @@ discard all unstaged changes
 	// discard the stash
 	git stash drop
 
+rewrite the most recent commit message if not pushed
+	git commit --amend
+
+revert an un-pushed commit without discarding changes
+	git reset HEAD~1 --soft
+
 commit a multiline message with editor
 	git commit
 
