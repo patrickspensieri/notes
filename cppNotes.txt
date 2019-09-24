@@ -1,0 +1,82 @@
+TODO notes on compilation, linking, object files, libraries, binaries, machine code etc
+
+// to compile source code using gcc
+g++ filename.cpp -o nameOfExecutableCode
+// to compile with c++11
+g++ -std=c++11 prog.cpp
+
+// declare a variable
+int x;
+
+// initialize a variable, different syntax
+int x {5};	// not allowed, no truncation so safer
+int x = {5};
+int x = 1.5;	// allowed due to truncation
+int x(5);
+
+// cpp is a weakly typed language due to "type coercion"
+// TODO elaborate on implicit and explicit type coercion
+// implicit type coercion
+int x = 2.99;	// allowed, the decimal will be truncated
+
+int i = 5;
+int* p = &i;	// pointer to int objects
+
+int *p1, *p2, v1, v2; 
+p1 = &v1;	// address operator, points to address of v1
+p2 = &v2;  
+*p1 = 42	// value operator, sets v1 to 42
+
+p2 = p1;	// pointer assignment, have p2 point to where p1 points
+*p2 = *p1;	// value assignment, set value of v2 to value of v1
+
+p3 = new int; 	// dynamic allocation, allocated on the heap, must be deallocated 
+p4 = 5; 	// static allocation, allowed within function definition, allocated on the stack
+
+// check for memory allocation issues, new compilers else check for null with old ones
+try {
+	int *array = new int[100];
+} catch(bad_allock&) {
+	cout << "Error allocating memory." << endl;
+}
+
+// TODO clarify what each line does
+// managing memory can be done by a resource handler class
+int *p;
+p = new int(5);	// allocate memory
+delete p;	// deallocate memory
+p = null;	// prevents dangling pointer errors
+
+int *d;
+d = new int[10];	// d refers to address of new array
+// d + 2 refers to address of new int[10] + 2*sizeof(int)
+
+// references are pointer variables that offer convenience at the expense of power
+// pointer arithmetic is not possible, also not possible to have a pointer to a reference
+int& r{v1};	// &r returns the address of object referred to by reference r, but not of the reference
+
+int *wildPointer;	// initialized but does not point to anything
+print(ptr);		// some address
+print(*ptr);		// garbage value
+
+// null pointer points to nothing, the base address of the segment
+// dangling pointers occur when the object in question has been deleted
+// the dangling pointer still points to address of the deallocated memory
+
+// use pointers to allow the pointer to point to a different object
+// use references if the reference must always point to the same object
+
+doubleVar static_cast<double>(intVar1/intVar2);	// static cast checked at compile time
+doubleVar = (double)(intVar1/intVar2);		// checked at runtime, more prone to runtime errors 
+						// see other casting types, including downcasting/upcasting
+
+// normally used for standard libraries, search in preprocessor searches in predefined place
+#include <filename>
+// search in current directory, then search for <filename> if not found
+#include "filename"
+
+// << and >> are bitwise operators 
+// they're often overloaded as stream operations, << for out and >> for in 
+std::cout << 5;
+std::cin >> var;
+

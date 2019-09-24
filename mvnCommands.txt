@@ -1,0 +1,13 @@
+TODO transcribe notes taken while at McGill
+
+// run a test class
+	./mvnw -Dtest=TestClass test
+	// run a method
+	./mvnw -Dtest=TestClass#testMethod test
+
+// run a goal without running prior goals
+	// won't run test, compile, and others
+	./mvnw deploy:deploy
+
+// run a spring boot app
+	./mvnw spring-boot:run

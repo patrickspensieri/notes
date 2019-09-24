@@ -1,0 +1,46 @@
+-- MAC TERMINAL NOTES --------------------------------------------------------------------
+
+// combine multiple pdfs into one using "ghostscript"
+	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=output.pdf *.pdf
+
+// convert and combine multiple images into a single pdf using "imagemagick"
+	convert *.jpg output.pdf
+
+// manage java versions
+	// see all available versions
+	jenv versions
+
+	// add a new version
+	jenv add /Library/Java/JavaVirtualMachine/jdk1.8.0_152.jdk/Contents/Home
+
+	// set a new global version
+	jenv global oracle64-1.8.0.192
+
+	// set a local version (depends on path)
+	jenv local oracle64-1.8.0.192
+
+// password protect a zip file
+	zip -e my-password cats.zip cats.jpg
+
+// encrypt a file using openssl
+	// encrypt
+	openssl aes-256-cbc -in cats.jpg -out encrypted.cat
+
+	// decrypt (-d flag, reverse in out)
+	// openssl aes-256-cbc -in -d encrypted.cat -out decrypted.jpg
+
+// encrypt a file or folder using Disk Utility
+	// click "File > New Image"
+
+// exclude file from spotlight search
+	// add .noindex
+	cats.jpg.noindex
+
+// terminal interface for mysql and mariadb, autocomplete and syntax highlighting
+	mycli -u my_user -h my_host.com my_database
+
+// find location of an executable
+	which mvn
+
+// diff two files
+	diff cats.txt dogs.txt

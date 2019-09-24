@@ -4,10 +4,16 @@ see status
 activity log
 	git log
 
+show some commit diff
+	git show <commit-hash>
+	// commit hash need not be complete
+	git show afa56
+
 show all branches
+	// local
 	git branch
-	// show all branches
-	git branch -vv
+	// local and remote
+	git branch -r
 
 change branch
 	git checkout branchName
@@ -44,10 +50,12 @@ rename a file
 	git mv fileName newName
 
 merging branches
+	// merge feature into master
 	git checkout master
-	git merge fixesBranch
-	//merges fixesBranch branch into master
-	//creates a merge commit
+	git merge feature
+	// abort a merge
+	git merge --abort
+	
 
 stashing/popping files
 	git stash save fileName
@@ -56,6 +64,8 @@ stashing/popping files
 	//git checkout originalBranch
 	//get the stashed file back
 	git stash pop
+	// apply an earlier stash (n=0 being latest)
+	git stash apply n
 
 list and drop(deleting) stashed files
 	git stash list
@@ -73,7 +83,9 @@ discard all unstaged changes
 	// discard the stash
 	git stash drop
 
-rewrite the most recent commit message if not pushed
+amend the most recent commit if not pushed
+	// will commit any staged changes
+	// allows for the commit message to be changed
 	git commit --amend
 
 revert an un-pushed commit without discarding changes
@@ -94,6 +106,10 @@ hard reset branch to last commit
 reset single file to HEAD
 	git checkout HEAD -- fileName.txt
 
+see commit history for given lines
+	// 5 lines, from 74 to 79
+	git blame -L 74,+5 -- fileName.txt
+
 force change in file name
 	git mv -f OldFileNameCase newfilenamecase
 
@@ -106,8 +122,30 @@ delete untracked files
 delete tracked files
 	git rm fileName
 
+rollback to a previous commit, erase history
+	// assume you pushed bad commits to feature branch
+	// want to erase those commits from history
+	git checkout desiredCommitHash
+	git push origin HEAD:branchName -f
+	// will remove all traces of bad commits
+
+add co-authors to a commit
+	git commit -m "commit message
+	> 
+	Co-authored-by: name <name@example.com>
+	Co-authored-by: another-name <another-name@example.com>"
+
+list git config
+	git config --list
+
 initialize a git repo
 	git init
 
 connect git repo to github
 	git remote add origin https://github.com/username/repo
+
+template gitignore files
+	https://gitignore.io
+
+TODO find a faulty commit
+	document git bisect process

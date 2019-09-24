@@ -1,3 +1,5 @@
+// TODO add notes taken at work
+
 list docker images
 	docker images
 
@@ -34,6 +36,8 @@ exit container, leave running in background
 enter running container 
 	docker exec containerName bash
 	alternative? (docker attach containerName)
+	// docker exec -it containerID bash
+	// what does the -it flag do
 
 exit running container
 	exit

@@ -1,4 +1,30 @@
+GETTING STARTED with mariadb
+
+using brew services
+	// list and get status
+	brew services list
+	// start, stop and clean services
+	brew services start mariadb
+	brew services stop mariadb
+	brew services cleanup
+
+log into mysql (from bash)
+	mysql
+	// defaults to
+	// host name 'localhost', usually '127.0.0.1'
+	// username is unix login name
+	// no password
+	// port is 3306
+	// connects to server, no particular database
+	
+	mysql -h 166.78.144.191 -u username -ppassword database_name -P port_num
+	// note there is no space between password option and value
+
+run a script while logged into a database
+	source /path/file.txt	
+
 mySQL NOTES
+-----------------------------------
 
 	by convention, sql commands are in CAPS
 	primary keys must be unique
