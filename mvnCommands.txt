@@ -1,4 +1,4 @@
-TODO transcribe notes taken while at McGill
+TODO transcribe notes taken while at work
 
 // run a test class
 	./mvnw -Dtest=TestClass test
