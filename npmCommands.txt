@@ -1,0 +1,24 @@
+// -- NPM (node package manager) ----
+    // install package globally
+    npm install -g packageName
+    // install from github
+    npm install -g org/repo-name
+    // install from local directory
+    npm install -g ./repo-name
+
+    // uninstall package globally
+    npm uninstall -g packageName
+
+    // see list of installed global packages
+    // depth hides dependencies
+    npm list -g --depth 0
+
+// -- NVM (node version manager) ----
+    // see installed node versions
+    nvm list
+
+    // use another node version
+    nvm use 12.0
+
+    // update node to latest
+    nvm install node

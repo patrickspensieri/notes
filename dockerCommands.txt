@@ -63,6 +63,11 @@ remove all containers
 remove all images
 	docker rmi $(docker images -q)
 
+build, start and attach containers for a service
+	// given some docker-compose.yml
+	// use --force-recreate to stop and recreate all containers
+	docker-compose up
+
 ---------------------------------------------------------------
 	NOTES
 ---------------------------------------------------------------
