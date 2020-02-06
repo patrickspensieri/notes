@@ -55,3 +55,6 @@
 
 // diff two files
 	diff cats.txt dogs.txt
+
+// find in current path
+	find . -iname something.py

@@ -12,6 +12,9 @@ TODO transcribe notes taken while at work
 // skip tests
 	./mvnw clean install -DskipTests
 
+// use a local profile
+	./mvnw clean insall -Pdev
+
 // run a spring boot app
 	./mvnw spring-boot:run
 
@@ -26,3 +29,6 @@ TODO transcribe notes taken while at work
 	./mvnw clean compile assembly:single
 	// run
 	java -jar path/file.jar
+
+// extract a jar into current directory
+	jar -xf fileName

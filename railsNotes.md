@@ -36,5 +36,9 @@
 #### shell into database
 `rails db`
 
+### run a single test
+ruby -I test test/my_test.rb
+ruby -I test test/my_test.rb -n my_test_name
+
 ### run migrations
 `rake db:migration`

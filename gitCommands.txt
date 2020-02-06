@@ -6,6 +6,9 @@ see status
 
 activity log
 	git log
+	// only show logs with search
+	git log searchTerm
+	
 
 show some commit diff
 	git show <commit-hash>
@@ -62,11 +65,7 @@ merging branches
 	git merge --abort
 	
 stashing/popping files
-	git stash save fileName
-	//git checkout otherBranch
-	//make changes
-	//git checkout originalBranch
-	//get the stashed file back
+	git stash save optionalFileName "optionalMessage"
 	git stash pop
 	// apply an earlier stash (n=0 being latest)
 	git stash apply n
