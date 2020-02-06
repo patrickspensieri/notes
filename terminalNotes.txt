@@ -19,6 +19,17 @@
 	// set a local version (depends on path)
 	jenv local oracle64-1.8.0.192
 
+// manage node versions
+	// see nvm notes
+
+// manage python versions
+	pyenv versions
+	pyenv global x.x.x
+	pyenv local x.x.x
+	// python -V
+	// if not working, run following in terminal
+	// eval "$(pyenv init -)"
+
 // password protect a zip file
 	zip -e my-password cats.zip cats.jpg
 
@@ -44,3 +55,6 @@
 
 // diff two files
 	diff cats.txt dogs.txt
+
+// find in current path
+	find . -iname something.py

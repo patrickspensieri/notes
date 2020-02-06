@@ -1,8 +1,14 @@
+// learn git concepts
+// https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc
+
 see status
 	git status
 
 activity log
 	git log
+	// only show logs with search
+	git log searchTerm
+	
 
 show some commit diff
 	git show <commit-hash>
@@ -17,6 +23,8 @@ show all branches
 
 change branch
 	git checkout branchName
+	// after deleting local branch and checking out remote, must specify remote
+	git checkout -t origin/branchName
 
 push local branch to remote
 	git push -u origin branchName
@@ -56,13 +64,8 @@ merging branches
 	// abort a merge
 	git merge --abort
 	
-
 stashing/popping files
-	git stash save fileName
-	//git checkout otherBranch
-	//make changes
-	//git checkout originalBranch
-	//get the stashed file back
+	git stash save optionalFileName "optionalMessage"
 	git stash pop
 	// apply an earlier stash (n=0 being latest)
 	git stash apply n
@@ -105,6 +108,18 @@ hard reset branch to last commit
 
 reset single file to HEAD
 	git checkout HEAD -- fileName.txt
+
+reset all files matching some pattern
+	git checkout -- "*.xml"
+
+remove previously commited file from gitignore
+	// will be ignored once committed and pulled down
+	// will delete local copies when pulled
+	git rm --cached
+
+see list of ignored files
+	git check-ignore *
+	// use option -v to see which rule applies to each file
 
 see commit history for given lines
 	// 5 lines, from 74 to 79

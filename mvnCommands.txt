@@ -1,4 +1,4 @@
-TODO transcribe notes taken while at McGill
+TODO transcribe notes taken while at work
 
 // run a test class
 	./mvnw -Dtest=TestClass test
@@ -9,5 +9,26 @@ TODO transcribe notes taken while at McGill
 	// won't run test, compile, and others
 	./mvnw deploy:deploy
 
+// skip tests
+	./mvnw clean install -DskipTests
+
+// use a local profile
+	./mvnw clean insall -Pdev
+
 // run a spring boot app
 	./mvnw spring-boot:run
+
+// quickstart mvn project
+	mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+
+// add maven wrapper
+	mvn -N io.takari:maven:0.7.6:wrapper
+
+// to package jar with dependencies, add the maven-assembly-package
+	// assemble with dependencies
+	./mvnw clean compile assembly:single
+	// run
+	java -jar path/file.jar
+
+// extract a jar into current directory
+	jar -xf fileName
